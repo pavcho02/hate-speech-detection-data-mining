@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Results from trained models and datasets
+data/*.csv
+results/*.csv
+results/*.md
