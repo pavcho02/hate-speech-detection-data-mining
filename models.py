@@ -1,7 +1,7 @@
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import ComplementNB
 
 from config import MAX_FEATURES, MIN_DF, NGRAM_RANGE, RANDOM_STATE
 
@@ -31,10 +31,19 @@ def get_vectorizers() -> dict:
 def get_models() -> dict:
     """
     Returns the machine learning models used in the experiments.
+
+    Complement Naive Bayes is used as the Naive Bayes approach because it is
+    better suited for imbalanced text classification problems than standard
+    Multinomial Naive Bayes.
+
+    Logistic Regression and Random Forest use class_weight='balanced'
+    because they directly support this parameter.
     """
 
     return {
-        "Naive Bayes": MultinomialNB(),
+        "Complement Naive Bayes": ComplementNB(
+            alpha=1.0
+        ),
 
         "Logistic Regression": LogisticRegression(
             max_iter=1000,
